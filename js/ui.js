@@ -9,7 +9,7 @@ const config = {
 
 export const render = (currentTab, data, filterStatus, actions) => {
     if (currentTab === 'overview') {
-        renderOverview(data);
+        renderOverview(data, container);
         return;
     }
 
@@ -36,10 +36,24 @@ export const render = (currentTab, data, filterStatus, actions) => {
     container.innerHTML = '';
     const today = new Date().toISOString().split('T')[0];
 
-    // Add Filter UI for non-overview/admin tabs (or logic-based tabs)
+    // Empty State Check
+    if (list.length === 0) {
+        const emptyState = document.createElement('div');
+        emptyState.className = 'empty-state scholar-card';
+        emptyState.innerHTML = `
+            <div class="text-4xl mb-4">📝</div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2">No Items Yet</h3>
+            <p class="text-slate-500 text-sm">Tap the "Add" button below to start tracking your ${currentTab} expenses.</p>
+        `;
+        container.appendChild(emptyState);
+        updateFinancials(currentTab, data);
+        return;
+    }
+
+    // Add Filter UI for non-overview/admin tabs
     if (currentTab !== 'overview') {
         const filterHeader = document.createElement('div');
-        filterHeader.className = 'flex justify-between items-center mb-4 px-2';
+        filterHeader.className = 'flex justify-between items-center mb-4 px-2 animate-fade-in-up';
         filterHeader.innerHTML = `
             <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">${list.length} Items</span>
             <select id="completion-filter" class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-600 outline-none">
@@ -49,15 +63,13 @@ export const render = (currentTab, data, filterStatus, actions) => {
             </select>
         `;
         container.appendChild(filterHeader);
-
-        // Use event delegation or set up listener in app.js. 
-        // For simplicity here, we'll let app.js handle the change event on this ID.
     }
 
-    list.forEach(item => {
+    list.forEach((item, index) => {
         const isOverdue = item.dueDate && item.dueDate < today && !item.checked;
         const card = document.createElement('div');
         card.className = `scholar-card p-6 border-2 mb-4 ${item.checked ? 'border-emerald-300 bg-emerald-50/30' : isOverdue ? 'border-rose-400 bg-rose-50/20' : 'border-transparent shadow-sm'}`;
+        card.style.animationDelay = `${index * 0.05}s`;
 
         card.innerHTML = `
             <div class="flex gap-5">
@@ -134,27 +146,53 @@ function updateFinancials(currentTab, data) {
     }
 }
 
-function renderOverview(data) {
-    const container = document.getElementById('items-container');
+function renderOverview(data, container) {
+    container.innerHTML = '';
     const totals = {
         uniform: calculateCategoryTotal(data.uniform, false),
         stationery: calculateCategoryTotal(data.stationery, false),
-        fees: calculateCategoryTotal(data.fees, true) // Always normalized for comparison
+        fees: calculateCategoryTotal(data.fees, true)
+    };
+    const spent = {
+        uniform: calculateCategorySpent(data.uniform, false),
+        stationery: calculateCategorySpent(data.stationery, false),
+        fees: calculateCategorySpent(data.fees, true)
     };
     const grandTotal = totals.uniform + totals.stationery + totals.fees;
+    const grandSpent = spent.uniform + spent.stationery + spent.fees;
+    const overallProgress = grandTotal > 0 ? (grandSpent / grandTotal * 100).toFixed(0) : 0;
 
     container.innerHTML = `
-        <div class="scholar-card p-10 shadow-2xl border-none mb-10">
-            <h3 class="text-xl font-black text-slate-800 mb-8 flex items-center gap-3"><span class="w-2 h-8 bg-slate-900 rounded-full"></span> Annual Budget</h3>
-            <div class="h-64"><canvas id="scholarChart"></canvas></div>
-            <div class="mt-10 pt-8 border-t border-slate-100">
-                <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">Total Estimated Annual Cost</p>
-                <p class="text-3xl font-black text-slate-900">${formatCurrency(grandTotal)}</p>
+        <div class="scholar-card p-10 shadow-2xl border-none mb-10 overflow-hidden relative animate-fade-in-up">
+            <div class="absolute top-0 right-0 p-8 opacity-10">
+                <span class="text-8xl font-black">${overallProgress}%</span>
+            </div>
+            <h3 class="text-xl font-black text-slate-800 mb-8 flex items-center gap-3">
+                <span class="w-2 h-8 bg-slate-900 rounded-full"></span> 
+                Annual Budget Overview
+            </h3>
+            <div class="h-64 mb-10"><canvas id="scholarChart"></canvas></div>
+            
+            <div class="space-y-6 pt-8 border-t border-slate-100">
+                ${renderCategoryProgress('Fees', spent.fees, totals.fees, '#f43f5e')}
+                ${renderCategoryProgress('Uniform', spent.uniform, totals.uniform, '#10b981')}
+                ${renderCategoryProgress('Stationery', spent.stationery, totals.stationery, '#3b82f6')}
+            </div>
+
+            <div class="mt-10 pt-8 border-t border-slate-100 flex justify-between items-end">
+                <div>
+                    <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">Total Annual Cost</p>
+                    <p class="text-3xl font-black text-slate-900">${formatCurrency(grandTotal)}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-emerald-500 font-black uppercase tracking-widest mb-1">Overall Progress</p>
+                    <p class="text-xl font-bold text-slate-700">${overallProgress}% Paid</p>
+                </div>
             </div>
         </div>
 
         <div class="space-y-6 pb-20">
-            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest px-2">Category Breakdown</h4>
+            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest px-2">Detailed Breakdown</h4>
             ${renderCategoryBreakdown('Fees', data.fees, totals.fees, true)}
             ${renderCategoryBreakdown('Uniform', data.uniform, totals.uniform, false)}
             ${renderCategoryBreakdown('Stationery', data.stationery, totals.stationery, false)}
@@ -185,6 +223,21 @@ function renderOverview(data) {
     });
 }
 
+function renderCategoryProgress(label, spent, total, color) {
+    const progress = total > 0 ? (spent / total * 100) : 0;
+    return `
+        <div>
+            <div class="flex justify-between items-center mb-2">
+                <p class="text-[10px] font-black text-slate-500 uppercase tracking-widest">${label}</p>
+                <p class="text-[10px] font-black text-slate-900">${formatCurrency(spent)} / ${formatCurrency(total)}</p>
+            </div>
+            <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full rounded-full transition-all duration-1000" style="width: ${progress}%; background-color: ${color}"></div>
+            </div>
+        </div>
+    `;
+}
+
 function renderCategoryBreakdown(title, items, categoryTotal, isFees) {
     if (!items || items.length === 0) return '';
 
@@ -192,7 +245,7 @@ function renderCategoryBreakdown(title, items, categoryTotal, isFees) {
         const itemAnnual = isFees ? calculateAnnualFee(item) : (item.price * item.qty);
         const percentage = categoryTotal > 0 ? (itemAnnual / categoryTotal * 100).toFixed(1) : 0;
         return `
-            <div class="breakdown-row">
+            <div class="breakdown-row animate-fade-in-up">
                 <div>
                     <p class="font-bold text-slate-700 text-sm">${item.name || 'Unnamed Item'}</p>
                     <p class="text-[10px] text-slate-400 font-bold uppercase">${isFees ? item.frequency : 'Once-off'}</p>
@@ -206,7 +259,7 @@ function renderCategoryBreakdown(title, items, categoryTotal, isFees) {
     }).join('');
 
     return `
-        <div class="scholar-card p-6 shadow-sm border-transparent bg-white/50">
+        <div class="scholar-card p-6 shadow-sm border-transparent bg-white/50 animate-fade-in-up">
             <h5 class="font-black text-slate-400 text-[10px] uppercase tracking-[0.2em] mb-4">${title} Breakdown</h5>
             <div class="divide-y divide-slate-100">
                 ${rows}

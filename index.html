@@ -1,69 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScholarStack | Academic Planner</title>
+    <title>Cost2Class | Academic Budget Planner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #f0f4f8 0%, #fff5f7 100%); min-height: 100vh; }
-        .scholar-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 2.2rem; transition: all 0.3s ease; }
-        .tab-active { background-color: #0f172a !important; color: #f8fafc !important; transform: translateY(-3px); box-shadow: 0 12px 20px -5px rgba(15, 23, 42, 0.2); }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .bottom-spacer { height: 280px; }
-        input:focus, select:focus { outline: none; background: #f8fafc; border-color: #cbd5e1; }
-        .brand-gradient { background: linear-gradient(to right, #0f172a, #334155); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
 </head>
+
 <body class="p-4 md:p-10">
 
     <div class="max-w-xl mx-auto">
         <header class="mb-10 flex justify-between items-center">
             <div>
-                <h1 class="text-4xl font-extrabold brand-gradient tracking-tighter">ScholarStack</h1>
+                <h1 class="text-4xl font-extrabold brand-gradient tracking-tighter">Cost2Class</h1>
                 <p class="text-slate-500 font-bold text-xs uppercase tracking-[0.2em] mt-1">Academic Prep Dashboard</p>
             </div>
-            <div class="bg-slate-900 w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg border border-slate-700">
-                <span class="text-white text-xl font-bold">S</span>
+            <div
+                class="bg-slate-900 w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg border border-slate-700 overflow-hidden">
+                <img src="logo.svg" alt="Cost2Class Logo" class="w-8 h-8 object-contain">
             </div>
         </header>
 
-        <nav class="flex overflow-x-auto gap-3 mb-10 hide-scrollbar pb-2">
-            <button onclick="switchTab('overview')" id="tab-overview" class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all tab-active">Overview</button>
-            <button onclick="switchTab('uniform')" id="tab-uniform" class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all">Uniform</button>
-            <button onclick="switchTab('stationery')" id="tab-stationery" class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all">Stationery</button>
-            <button onclick="switchTab('fees')" id="tab-fees" class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all">Fees</button>
-            <button onclick="switchTab('admin')" id="tab-admin" class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all">Admin</button>
+        <!-- Tabs: Overview, Admin, Fees, Uniform, Stationery -->
+        <nav class="flex overflow-x-auto gap-3 py-4 mb-6 hide-scrollbar">
+            <button id="tab-overview"
+                class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all tab-active">Overview</button>
+            <button id="tab-admin"
+                class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all">Admin</button>
+            <button id="tab-fees"
+                class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all">Fees</button>
+            <button id="tab-uniform"
+                class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all">Uniform</button>
+            <button id="tab-stationery"
+                class="px-6 py-3.5 rounded-2xl bg-white text-slate-500 font-extrabold shadow-sm transition-all">Stationery</button>
         </nav>
 
         <div id="items-container" class="space-y-6"></div>
 
         <div id="bottom-spacer" class="bottom-spacer"></div>
 
-        <div id="footer-dashboard" class="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-xl px-4" style="display: none;">
+        <div id="footer-dashboard" class="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-xl px-4"
+            style="display: none;">
             <div class="bg-slate-900 rounded-[2.8rem] overflow-hidden text-white shadow-2xl border border-slate-700">
                 <div class="w-full h-1.5 bg-slate-800">
-                    <div id="financial-progress-bar" class="h-full bg-emerald-400 transition-all duration-1000" style="width: 0%"></div>
+                    <div id="financial-progress-bar" class="h-full bg-emerald-400 transition-all duration-1000"
+                        style="width: 0%"></div>
                 </div>
                 <div class="p-7">
                     <div class="grid grid-cols-2 gap-4 mb-6 border-b border-slate-800 pb-5">
                         <div>
-                            <p class="text-[10px] text-emerald-400 uppercase font-black tracking-widest mb-1">Spent So Far</p>
+                            <p class="text-[10px] text-emerald-400 uppercase font-black tracking-widest mb-1">Spent So
+                                Far</p>
                             <p id="spent-amount" class="text-xl font-bold">R 0.00</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-[10px] text-rose-400 uppercase font-black tracking-widest mb-1">Left to Spend</p>
+                            <p class="text-[10px] text-rose-400 uppercase font-black tracking-widest mb-1">Left to Spend
+                            </p>
                             <p id="remaining-amount" class="text-xl font-bold">R 0.00</p>
                         </div>
                     </div>
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Category Total</p>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-0.5">Category
+                                Total</p>
                             <p id="total-cost" class="text-2xl font-black">R 0.00</p>
                         </div>
-                        <button onclick="addNewItem()" class="bg-emerald-500 text-white px-10 py-4 rounded-full font-black hover:bg-emerald-400 shadow-xl transition-all">
+                        <button id="add-item-btn"
+                            class="bg-emerald-500 text-white px-10 py-4 rounded-full font-black hover:bg-emerald-400 shadow-xl transition-all">
                             Add Item +
                         </button>
                     </div>
@@ -71,178 +80,19 @@
             </div>
         </div>
 
-        <div id="admin-footer" class="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-xl px-4" style="display: none;">
+        <div id="admin-footer" class="fixed bottom-8 left-1/2 -translate-x-1/2 w-full max-w-xl px-4"
+            style="display: none;">
             <div class="flex justify-center">
-                <button onclick="addNewItem()" class="bg-slate-900 text-white px-12 py-5 rounded-full font-black shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
-                    Add New Task <span class="bg-slate-700 w-6 h-6 rounded-full text-xs flex items-center justify-center">+</span>
+                <button id="add-task-btn"
+                    class="bg-slate-900 text-white px-12 py-5 rounded-full font-black shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
+                    Add New Task <span
+                        class="bg-slate-700 w-6 h-6 rounded-full text-xs flex items-center justify-center">+</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <script>
-        let currentTab = 'overview';
-        let data = JSON.parse(localStorage.getItem('ScholarStack_v2')) || {
-            uniform: [], stationery: [], admin: [], fees: []
-        };
-
-        const config = {
-            uniform: { hasShop: true, hasQty: true, hasPrice: true, hasFreq: false, hasDate: false },
-            stationery: { hasShop: true, hasQty: true, hasPrice: true, hasFreq: false, hasDate: false },
-            fees: { hasShop: false, hasQty: false, hasPrice: true, hasFreq: true, hasDate: false },
-            admin: { hasShop: false, hasQty: false, hasPrice: false, hasFreq: false, hasDate: true }
-        };
-
-        function switchTab(tab) {
-            currentTab = tab;
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('tab-active'));
-            document.getElementById(`tab-${tab}`).classList.add('tab-active');
-            
-            document.getElementById('footer-dashboard').style.display = (tab === 'overview' || tab === 'admin') ? 'none' : 'block';
-            document.getElementById('admin-footer').style.display = (tab === 'admin') ? 'block' : 'none';
-            document.getElementById('bottom-spacer').style.display = (tab === 'overview') ? 'none' : 'block';
-            
-            render();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function addNewItem() {
-            data[currentTab].push({ 
-                id: Date.now(), name: '', shop: '', qty: 1, price: 0, 
-                frequency: 'Once-off', dueDate: '', checked: false 
-            });
-            save();
-            render();
-            setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 100);
-        }
-
-        function updateItem(id, field, value) {
-            const item = data[currentTab].find(i => i.id === id);
-            if (item) {
-                item[field] = (field === 'price' || field === 'qty') ? (parseFloat(value) || 0) : value;
-                save();
-                if (currentTab === 'admin') render(); // Re-render to re-sort dates
-                updateFinancials();
-            }
-        }
-
-        function toggleItem(id) {
-            const item = data[currentTab].find(i => i.id === id);
-            item.checked = !item.checked;
-            save();
-            render();
-        }
-
-        function deleteItem(id) {
-            data[currentTab] = data[currentTab].filter(i => i.id !== id);
-            save();
-            render();
-        }
-
-        function save() { localStorage.setItem('ScholarStack_v2', JSON.stringify(data)); }
-
-        function updateFinancials() {
-            if (currentTab === 'overview' || currentTab === 'admin') return;
-            const items = data[currentTab];
-            const total = items.reduce((sum, i) => sum + (i.qty * i.price), 0);
-            const spent = items.filter(i => i.checked).reduce((sum, i) => sum + (i.qty * i.price), 0);
-            const remaining = total - spent;
-            const progress = total > 0 ? (spent / total) * 100 : 0;
-
-            document.getElementById('total-cost').innerText = `R ${total.toFixed(2)}`;
-            document.getElementById('spent-amount').innerText = `R ${spent.toFixed(2)}`;
-            document.getElementById('remaining-amount').innerText = `R ${remaining.toFixed(2)}`;
-            document.getElementById('financial-progress-bar').style.width = `${progress}%`;
-        }
-
-        function render() {
-            if (currentTab === 'overview') { renderOverview(); return; }
-
-            const container = document.getElementById('items-container');
-            const conf = config[currentTab];
-            let list = [...data[currentTab]];
-
-            // Sorting for Admin
-            if (currentTab === 'admin') {
-                list.sort((a, b) => {
-                    if (!a.dueDate) return 1;
-                    if (!b.dueDate) return -1;
-                    return new Date(a.dueDate) - new Date(b.dueDate);
-                });
-            }
-
-            container.innerHTML = '';
-            const today = new Date().toISOString().split('T')[0];
-
-            list.forEach(item => {
-                const isOverdue = item.dueDate && item.dueDate < today && !item.checked;
-                const card = document.createElement('div');
-                card.className = `scholar-card p-6 border-2 ${item.checked ? 'border-emerald-300 bg-emerald-50/30' : isOverdue ? 'border-rose-400 bg-rose-50/20' : 'border-transparent shadow-sm'}`;
-                
-                card.innerHTML = `
-                    <div class="flex gap-5">
-                        <button onclick="toggleItem(${item.id})" class="mt-1 w-10 h-10 rounded-2xl border-2 flex-shrink-0 flex items-center justify-center transition-all ${item.checked ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-200 bg-slate-50'}">
-                            ${item.checked ? '✓' : ''}
-                        </button>
-                        <div class="flex-grow space-y-4">
-                            <div class="flex justify-between items-start gap-2">
-                                <div class="w-full">
-                                    ${isOverdue ? '<span class="text-[9px] font-black text-rose-500 uppercase tracking-widest mb-1 block">⚠️ Overdue</span>' : ''}
-                                    <input onchange="updateItem(${item.id}, 'name', this.value)" value="${item.name}" placeholder="Description..." class="bg-transparent font-bold text-slate-800 w-full text-xl outline-none">
-                                </div>
-                                <button onclick="deleteItem(${item.id})" class="text-slate-300 hover:text-rose-500">✕</button>
-                            </div>
-
-                            ${conf.hasShop ? `
-                            <div class="bg-slate-50 rounded-2xl px-4 py-3 flex items-center gap-3 border border-slate-100">
-                                <span class="text-lg">🏪</span>
-                                <input list="repo-shops" onchange="updateItem(${item.id}, 'shop', this.value)" value="${item.shop}" class="bg-transparent w-full outline-none font-bold text-slate-600 text-sm" placeholder="Store...">
-                            </div>` : ''}
-
-                            <div class="flex gap-3">
-                                ${conf.hasQty ? `<div class="flex-1 bg-slate-50 rounded-2xl px-4 py-3 border border-slate-100"><p class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Qty</p><input type="number" oninput="updateItem(${item.id}, 'qty', this.value)" value="${item.qty}" class="bg-transparent w-full outline-none font-black text-slate-700"></div>` : ''}
-                                ${conf.hasPrice ? `<div class="flex-1 bg-slate-50 rounded-2xl px-4 py-3 border border-slate-100"><p class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Price</p><input type="number" oninput="updateItem(${item.id}, 'price', this.value)" value="${item.price}" class="bg-transparent w-full outline-none font-black text-slate-700"></div>` : ''}
-                                ${conf.hasFreq ? `<div class="flex-1 bg-slate-50 rounded-2xl px-4 py-3 border border-slate-100"><p class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Frequency</p><select onchange="updateItem(${item.id}, 'frequency', this.value)" class="bg-transparent w-full outline-none font-black text-slate-700 text-xs"><option value="Annually" ${item.frequency === 'Annually' ? 'selected' : ''}>Annually</option><option value="Monthly" ${item.frequency === 'Monthly' ? 'selected' : ''}>Monthly</option><option value="Per Term" ${item.frequency === 'Per Term' ? 'selected' : ''}>Per Term</option><option value="Once-off" ${item.frequency === 'Once-off' ? 'selected' : ''}>Once-off</option></select></div>` : ''}
-                                ${conf.hasDate ? `<div class="flex-1 bg-slate-50 rounded-2xl px-4 py-3 border border-slate-100 ${isOverdue ? 'bg-rose-100 border-rose-200' : ''}"><p class="text-[9px] font-black text-slate-400 uppercase tracking-tighter">Due Date</p><input type="date" onchange="updateItem(${item.id}, 'dueDate', this.value)" value="${item.dueDate || ''}" class="bg-transparent w-full outline-none font-black text-slate-700 text-xs"></div>` : ''}
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-            updateFinancials();
-        }
-
-        function renderOverview() {
-            const container = document.getElementById('items-container');
-            const totals = {
-                uniform: data.uniform.reduce((sum, i) => sum + (i.qty * i.price), 0),
-                stationery: data.stationery.reduce((sum, i) => sum + (i.qty * i.price), 0),
-                fees: data.fees.reduce((sum, i) => sum + (i.qty * i.price), 0)
-            };
-            const grandTotal = totals.uniform + totals.stationery + totals.fees;
-
-            container.innerHTML = `
-                <div class="scholar-card p-10 shadow-2xl border-none">
-                    <h3 class="text-xl font-black text-slate-800 mb-8 flex items-center gap-3"><span class="w-2 h-8 bg-slate-900 rounded-full"></span> Budget Distribution</h3>
-                    <div class="chart-container"><canvas id="scholarChart"></canvas></div>
-                    <div class="mt-10 pt-8 border-t border-slate-100 flex justify-between items-end">
-                        <div><p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">Total Academic Budget</p><p class="text-3xl font-black text-slate-900">R ${grandTotal.toFixed(2)}</p></div>
-                    </div>
-                </div>
-            `;
-
-            new Chart(document.getElementById('scholarChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Uniform', 'Stationery', 'Fees'],
-                    datasets: [{ data: [totals.uniform, totals.stationery, totals.fees], backgroundColor: ['#10b981', '#3b82f6', '#f43f5e'], borderWidth: 0, hoverOffset: 15 }]
-                },
-                options: { cutout: '80%', plugins: { legend: { position: 'bottom', labels: { padding: 30, font: { weight: '800', size: 12, family: 'Plus Jakarta Sans' } } } }, maintainAspectRatio: false }
-            });
-        }
-
-        render();
-    </script>
+    <script type="module" src="js/app.js"></script>
 </body>
+
 </html>
