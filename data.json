@@ -6,6 +6,12 @@
       "price": 210,
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "Jersey ",
+      "price": 250,
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
