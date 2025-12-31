@@ -29,7 +29,13 @@
       "name": "Pullover",
       "price": 250,
       "completed": false,
-      "quantity": 1
+      "quantity": 1,
+      "prices": [
+        {
+          "store": "School Shop",
+          "price": 250
+        }
+      ]
     },
     {
       "name": "Drimac",
