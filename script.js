@@ -12,24 +12,134 @@ let currentFilters = {
     stationery: "all"
 }
 
+// GitHub Sync Config
+const GH_CONFIG_KEY = "cost2class-gh-config"
+let ghConfig = {
+    username: "",
+    repo: "",
+    token: ""
+}
+
 // Chart instance
 let budgetChart = null
 
-// --- INITIALIZATION ---
-loadData()
-
-function loadData() {
-    const saved = localStorage.getItem("cost2class-data")
-    if (saved) {
-        budgetData = JSON.parse(saved)
+// --- GITHUB API CLASS ---
+class GitHubAPI {
+    constructor() {
+        this.loadConfig()
     }
-    updateUI()
+
+    loadConfig() {
+        const saved = localStorage.getItem(GH_CONFIG_KEY)
+        if (saved) ghConfig = JSON.parse(saved)
+    }
+
+    saveConfig(username, repo, token) {
+        ghConfig = { username, repo, token }
+        localStorage.setItem(GH_CONFIG_KEY, JSON.stringify(ghConfig))
+    }
+
+    get headers() {
+        return {
+            "Authorization": `Bearer ${ghConfig.token}`,
+            "Accept": "application/vnd.github.v3+json",
+            "Content-Type": "application/json"
+        }
+    }
+
+    get fileUrl() {
+        return `https://api.github.com/repos/${ghConfig.username}/${ghConfig.repo}/contents/data.json`
+    }
+
+    async fetchFile() {
+        if (!ghConfig.token) return null
+
+        try {
+            const response = await fetch(this.fileUrl, { headers: this.headers })
+            if (!response.ok) throw new Error("Fetch failed")
+
+            const data = await response.json()
+            const content = atob(data.content) // Decode Base64
+            const sha = data.sha
+
+            return { content: JSON.parse(content), sha }
+        } catch (error) {
+            console.error("GitHub Fetch Error:", error)
+            return null
+        }
+    }
+
+    async saveFile(content, sha) {
+        if (!ghConfig.token) return
+
+        // If we don't have a SHA, we must fetch it first
+        let currentSha = sha
+        if (!currentSha) {
+            const currentFile = await this.fetchFile()
+            if (currentFile) currentSha = currentFile.sha
+        }
+
+        try {
+            const response = await fetch(this.fileUrl, {
+                method: "PUT",
+                headers: this.headers,
+                body: JSON.stringify({
+                    message: "Update budget data via Cost2Class App",
+                    content: btoa(JSON.stringify(content, null, 2)), // Encode Base64
+                    sha: currentSha
+                })
+            })
+
+            if (response.ok) {
+                const data = await response.json()
+                showToast("Synced to GitHub", "success")
+                return data.content.sha // Return new SHA
+            } else {
+                throw new Error("Save failed")
+            }
+        } catch (error) {
+            console.error("GitHub Save Error:", error)
+            showToast("Sync Failed", "error")
+        }
+    }
+}
+
+const ghApi = new GitHubAPI()
+
+
+// --- INITIALIZATION ---
+async function loadData() {
+    // 1. Try Local First (Instant)
+    const local = localStorage.getItem("cost2class-data")
+    if (local) {
+        budgetData = JSON.parse(local)
+        updateUI()
+    }
+
+    // 2. Try GitHub Sync (Background)
+    if (ghConfig.token) {
+        showToast("Syncing...", "info")
+        const remote = await ghApi.fetchFile()
+        if (remote) {
+            budgetData = remote.content
+            localStorage.setItem("cost2class-data", JSON.stringify(budgetData))
+            updateUI()
+            showToast("Updated from Cloud", "success")
+        }
+    }
 }
 
 function saveData() {
+    // 1. Save Local
     localStorage.setItem("cost2class-data", JSON.stringify(budgetData))
     updateUI()
+
+    // 2. Save Remote (Debounced slightly ideally, but direct for now)
+    if (ghConfig.token) {
+        ghApi.saveFile(budgetData)
+    }
 }
+
 
 // --- NAVIGATION ---
 document.querySelectorAll(".nav-btn").forEach((btn) => {
@@ -148,7 +258,7 @@ function renderItems(category, filter = "all", searchQuery = "") {
     }).join("")
 
     // Update Totals Logic
-    const totals = calculateCategoryTotals(category)
+    calculateCategoryTotals(category) // Recalculate if needed
 }
 
 function renderAdminTasks(searchQuery = "") {
@@ -157,7 +267,6 @@ function renderAdminTasks(searchQuery = "") {
 
     if (searchQuery) tasks = tasks.filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
-    // Sort by Date
     tasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
 
     listEl.innerHTML = tasks.length ? tasks.map((task) => {
@@ -181,7 +290,9 @@ function renderAdminTasks(searchQuery = "") {
         `
     }).join("") : `<div style="text-align:center; padding: 40px; color: var(--text-tertiary);">No tasks</div>`
 
-    document.getElementById("admin-count-tab").textContent = budgetData.adminTasks.filter(t => !t.completed).length
+    const adminCount = budgetData.adminTasks.filter(t => !t.completed).length
+    const badge = document.getElementById("admin-count-tab")
+    if (badge) badge.textContent = adminCount
 }
 
 // --- CHART & DASHBOARD ---
@@ -283,7 +394,7 @@ function updateUI() {
     drawPieChart()
 }
 
-// --- BOTTOM SHEETS (MODAL REPLACEMENT) ---
+// --- BOTTOM SHEETS ---
 function openAddModal(category) {
     document.getElementById("bottomSheetOverlay").classList.add("active")
     document.getElementById("itemSheet").classList.add("active")
@@ -307,6 +418,16 @@ function openTaskModal() {
     document.getElementById("taskSheet").classList.add("active")
     document.getElementById("taskForm").reset()
     document.getElementById("taskId").value = ""
+}
+
+function openSyncModal() {
+    document.getElementById("bottomSheetOverlay").classList.add("active")
+    document.getElementById("syncSheet").classList.add("active")
+
+    // Pre-fill
+    document.getElementById("ghUsername").value = ghConfig.username || ""
+    document.getElementById("ghRepo").value = ghConfig.repo || ""
+    document.getElementById("ghToken").value = ghConfig.token || ""
 }
 
 function closeModal() {
@@ -346,11 +467,9 @@ document.getElementById("itemForm").addEventListener("submit", (e) => {
         name: document.getElementById("itemName").value,
         price: parseFloat(document.getElementById("itemPrice").value),
         budget: parseFloat(document.getElementById("itemBudget").value),
-        completed: id !== "" ? budgetData[category][id].completed : false // preserve status
+        completed: id !== "" ? budgetData[category][id].completed : false, // preserve status
+        [category === "fees" ? "period" : "quantity"]: category === "fees" ? document.getElementById("itemPeriod").value : parseInt(document.getElementById("itemQuantity").value)
     }
-
-    if (category === "fees") item.period = document.getElementById("itemPeriod").value
-    else item.quantity = parseInt(document.getElementById("itemQuantity").value)
 
     if (id === "") budgetData[category].push(item)
     else budgetData[category][id] = Object.assign(budgetData[category][id], item)
@@ -375,6 +494,33 @@ document.getElementById("taskForm").addEventListener("submit", (e) => {
     closeModal()
 })
 
+// SYNC FORM SUBMIT
+document.getElementById("syncForm").addEventListener("submit", async (e) => {
+    e.preventDefault()
+    const user = document.getElementById("ghUsername").value
+    const repo = document.getElementById("ghRepo").value
+    const token = document.getElementById("ghToken").value
+
+    ghApi.saveConfig(user, repo, token)
+
+    const statusEl = document.getElementById("syncStatus")
+    statusEl.textContent = "Testing connection..."
+    statusEl.style.color = "var(--text-secondary)"
+
+    const result = await ghApi.fetchFile()
+    if (result) {
+        statusEl.textContent = "Connection Successful! Syncing..."
+        statusEl.style.color = "var(--color-success)"
+        // Initial Fetch
+        loadData()
+        setTimeout(() => closeModal(), 1500)
+    } else {
+        statusEl.textContent = "Connection Failed. Check details."
+        statusEl.style.color = "var(--color-danger)"
+    }
+})
+
+
 // ACTIONS
 function toggleItemComplete(category, index) {
     budgetData[category][index].completed = !budgetData[category][index].completed
@@ -393,48 +539,32 @@ function clearAllData() {
     }
 }
 
-// --- CSV (Keep existing logic) ---
-function exportToCSV(category) {
-    let csv = ""
-    const items = budgetData[category]
-    if (category === "adminTasks") {
-        csv = "Name,Deadline,Completed\n" + items.map(t => `${t.name},${t.deadline},${t.completed}`).join("\n")
-    } else {
-        const isFees = category === "fees"
-        csv = (isFees ? "Name,Period,Price,Budget,Completed\n" : "Name,Quantity,Price,Budget,Completed\n") +
-            items.map(i => `${i.name},${isFees ? i.period : i.quantity},${i.price},${i.budget},${i.completed}`).join("\n")
-    }
-    const link = document.createElement("a")
-    link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }))
-    link.download = `cost2class_${category}.csv`
-    link.click()
+// TOAST
+function showToast(message, type = "info") {
+    // Basic toast, could be enhanced with styling
+    const toast = document.createElement("div")
+    toast.style.position = "fixed"
+    toast.style.bottom = "100px"
+    toast.style.left = "50%"
+    toast.style.transform = "translateX(-50%)"
+    toast.style.background = "rgba(0,0,0,0.8)"
+    toast.style.color = "white"
+    toast.style.padding = "10px 20px"
+    toast.style.borderRadius = "20px"
+    toast.style.fontSize = "14px"
+    toast.style.zIndex = "200"
+    toast.style.animation = "fadeIn 0.3s ease"
+    toast.textContent = message
+
+    if (type === "success") toast.style.borderBottom = "3px solid var(--color-success)"
+    if (type === "error") toast.style.borderBottom = "3px solid var(--color-danger)"
+
+    document.body.appendChild(toast)
+    setTimeout(() => {
+        toast.style.opacity = "0"
+        setTimeout(() => toast.remove(), 300)
+    }, 2000)
 }
 
-function importCSV(category, file) {
-    const reader = new FileReader()
-    reader.onload = function (e) {
-        const lines = e.target.result.split("\n").slice(1) // skip header
-        const newItems = []
-
-        lines.forEach(line => {
-            if (!line.trim()) return
-            const cols = line.split(",") // Simple split
-            if (category === "adminTasks") {
-                newItems.push({ name: cols[0], deadline: cols[1], completed: cols[2] === "true" })
-            } else {
-                newItems.push({
-                    name: cols[0],
-                    [category === "fees" ? "period" : "quantity"]: category === "fees" ? cols[1] : parseInt(cols[1]),
-                    price: parseFloat(cols[2]),
-                    budget: parseFloat(cols[3]),
-                    completed: cols[4] === "true"
-                })
-            }
-        })
-
-        budgetData[category].push(...newItems)
-        saveData()
-        alert(`Imported ${newItems.length} items`)
-    }
-    reader.readAsText(file) // IMPORTANT: Actual read call
-}
+// START
+loadData()
