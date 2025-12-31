@@ -296,9 +296,6 @@ p {
 
 /* --- Lists & Items --- */
 .search-container {
-    position: sticky;
-    top: 90px;
-    z-index: 40;
     margin-bottom: 20px;
 }
 
