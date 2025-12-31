@@ -12,6 +12,12 @@
       "price": 250,
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "Pullover",
+      "price": 250,
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
