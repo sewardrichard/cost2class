@@ -77,7 +77,13 @@
       "name": "Scarf Set",
       "price": 190,
       "completed": false,
-      "quantity": 1
+      "quantity": 1,
+      "prices": [
+        {
+          "store": "School Shop",
+          "price": 190
+        }
+      ]
     }
   ],
   "stationery": [],
