@@ -1,6 +1,13 @@
 {
-    "fees": [],
-    "uniforms": [],
-    "stationery": [],
-    "adminTasks": []
+  "fees": [],
+  "uniforms": [
+    {
+      "name": "Golfshirt",
+      "price": 250,
+      "completed": false,
+      "quantity": 1
+    }
+  ],
+  "stationery": [],
+  "adminTasks": []
 }
