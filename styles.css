@@ -637,3 +637,69 @@ p {
 .hidden {
     display: none !important;
 }
+
+/* --- Multi-Store Price Feature --- */
+.prices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.price-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 30px;
+    gap: 10px;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.price-row input {
+    width: 100%;
+    /* Ensure inputs take full width of grid cell */
+}
+
+.date-row {
+    /* For Admin Tasks generic usage if needed, or similar layouts */
+    display: flex;
+    gap: 12px;
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 12px;
+    border-radius: var(--radius-md);
+    background: transparent;
+    border: 2px dashed #E5E7EB;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-secondary:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+    background: var(--brand-soft);
+}
+
+.remove-price-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.remove-price-btn:hover {
+    background: #FEE2E2;
+    color: var(--color-danger);
+}

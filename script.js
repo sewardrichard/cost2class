@@ -178,6 +178,34 @@ document.querySelectorAll(".pill-tab").forEach((tab) => {
 })
 
 
+// --- MULTI-STORE HELPER ---
+function getBestPrice(item) {
+    if (item.prices && item.prices.length > 0) {
+        // Find lowest price
+        const prices = item.prices.map(p => parseFloat(p.price) || 0)
+        return Math.min(...prices)
+    }
+    // Fallback to legacy
+    return parseFloat(item.price) || 0
+}
+
+function addPriceRow(store = "", price = "") {
+    const container = document.getElementById("pricesContainer")
+    const row = document.createElement("div")
+    row.className = "price-row"
+    row.innerHTML = `
+        <input type="text" class="store-input" placeholder="Store (e.g. Checkers)" value="${store}">
+        <input type="number" class="price-input" step="0.01" min="0" placeholder="0.00" value="${price}">
+        <div class="remove-price-btn" onclick="this.parentElement.remove()">
+             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </div>
+    `
+    container.appendChild(row)
+}
+
 // --- DATA LOGIC ---
 function calculateCategoryTotals(category) {
     const items = budgetData[category]
@@ -186,14 +214,16 @@ function calculateCategoryTotals(category) {
 
     items.forEach((item) => {
         let itemBudget = 0
+        const bestPrice = getBestPrice(item)
+
         if (category === "fees") {
-            let annualPrice = Number.parseFloat(item.price) || 0
+            let annualPrice = bestPrice
             if (item.period === "monthly") annualPrice *= 12
             else if (item.period === "termly") annualPrice *= 4
             itemBudget = annualPrice
         } else {
             const quantity = Number.parseInt(item.quantity) || 1
-            const price = Number.parseFloat(item.price) || 0
+            const price = bestPrice
             itemBudget = quantity * price
         }
 
@@ -225,8 +255,16 @@ function renderItems(category, filter = "all") {
 
     listEl.innerHTML = filteredItems.map((item) => {
         const originalIndex = items.indexOf(item)
-        let displayPrice = Number.parseFloat(item.price) || 0
+        let bestPrice = getBestPrice(item)
+        let displayPrice = bestPrice
         let detailText = ""
+
+        // Find store name for best price if available
+        let storeName = ""
+        if (item.prices && item.prices.length > 0) {
+            const bestEntry = item.prices.find(p => (parseFloat(p.price) || 0) === bestPrice)
+            if (bestEntry && bestEntry.store) storeName = bestEntry.store
+        }
 
         if (category === "fees") {
             detailText = item.period ? item.period.charAt(0).toUpperCase() + item.period.slice(1) : "Once-off"
@@ -234,7 +272,7 @@ function renderItems(category, filter = "all") {
             else if (item.period === "termly") displayPrice *= 4
         } else {
             const qty = item.quantity || 1
-            detailText = `Qty: ${qty}`
+            detailText = `${storeName ? storeName + ' • ' : ''}Qty: ${qty}`
             displayPrice *= qty
         }
 
@@ -393,14 +431,20 @@ function updateUI() {
 }
 
 // --- BOTTOM SHEETS ---
-function openAddModal(category) {
+function openAddModal(category, isEdit = false) {
     document.getElementById("bottomSheetOverlay").classList.add("active")
     document.getElementById("itemSheet").classList.add("active")
 
-    document.getElementById("modalTitle").textContent = "Add Item"
+    document.getElementById("modalTitle").textContent = isEdit ? "Edit Item" : "Add Item"
     document.getElementById("itemForm").reset()
     document.getElementById("itemId").value = ""
     document.getElementById("itemCategory").value = category
+
+    // Clear prices
+    document.getElementById("pricesContainer").innerHTML = ""
+    if (!isEdit) {
+        addPriceRow() // Add one empty row for new items
+    }
 
     if (category === "fees") {
         document.getElementById("periodGroup").style.display = "block"
@@ -410,8 +454,13 @@ function openAddModal(category) {
         document.getElementById("quantityGroup").style.display = "block"
     }
 
-    // Hide Delete Button by default (Add Mode)
-    document.getElementById("btn-delete").style.display = "none"
+    // Button Visibility
+    const btn = document.getElementById("btn-delete")
+    if (isEdit) {
+        btn.style.display = "flex"
+    } else {
+        btn.style.display = "none"
+    }
 }
 
 function openTaskModal() {
@@ -439,18 +488,22 @@ function closeModal() {
 // EDIT
 function editItem(category, index) {
     const item = budgetData[category][index]
-    openAddModal(category)
-    document.getElementById("modalTitle").textContent = "Edit Item"
+    openAddModal(category, true)
+
     document.getElementById("itemId").value = index
     document.getElementById("itemName").value = item.name
-    document.getElementById("itemPrice").value = item.price
+
+    // Populate Prices
+    if (item.prices && item.prices.length > 0) {
+        item.prices.forEach(p => addPriceRow(p.store, p.price))
+    } else {
+        // Migration support
+        addPriceRow("", item.price || "")
+    }
     // Budget field removed
 
     if (category === "fees") document.getElementById("itemPeriod").value = item.period || "once-off"
     else document.getElementById("itemQuantity").value = item.quantity || 1
-
-    // Show Delete Button (Edit Mode)
-    document.getElementById("btn-delete").style.display = "flex"
 }
 
 function editTask(index) {
@@ -467,9 +520,20 @@ document.getElementById("itemForm").addEventListener("submit", (e) => {
     const category = document.getElementById("itemCategory").value
     const id = document.getElementById("itemId").value
 
+    // Collect Prices
+    const priceRows = document.querySelectorAll(".price-row")
+    const prices = []
+    priceRows.forEach(row => {
+        const store = row.querySelector(".store-input").value.trim()
+        const price = parseFloat(row.querySelector(".price-input").value)
+        if (!isNaN(price) || store !== "") {
+            prices.push({ store, price: isNaN(price) ? 0 : price })
+        }
+    })
+
     const item = {
         name: document.getElementById("itemName").value,
-        price: parseFloat(document.getElementById("itemPrice").value),
+        prices: prices,
         completed: id !== "" ? budgetData[category][id].completed : false, // preserve status
         [category === "fees" ? "period" : "quantity"]: category === "fees" ? document.getElementById("itemPeriod").value : parseInt(document.getElementById("itemQuantity").value)
     }

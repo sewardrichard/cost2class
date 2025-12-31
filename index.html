@@ -193,8 +193,13 @@
                 <input type="number" id="itemQuantity" min="1" value="1">
             </div>
             <div class="form-group">
-                <label>Price (R)</label>
-                <input type="number" id="itemPrice" step="0.01" min="0" required placeholder="0.00">
+                <label>Prices</label>
+                <div id="pricesContainer" class="prices-container">
+                    <!-- Dynamic Price Rows -->
+                </div>
+                <button type="button" class="btn-secondary" onclick="addPriceRow()">
+                    <span style="font-size:18px; line-height:1; margin-right:4px;">+</span> Add Price
+                </button>
             </div>
             <!-- Budget Input Removed -->
             <div class="form-group" style="display: grid; grid-template-columns: 1fr auto; gap: 12px;">
