@@ -18,6 +18,12 @@
       "price": 250,
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "Drimac",
+      "price": 350,
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
