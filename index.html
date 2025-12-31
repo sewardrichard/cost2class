@@ -197,8 +197,14 @@
                 <input type="number" id="itemPrice" step="0.01" min="0" required placeholder="0.00">
             </div>
             <!-- Budget Input Removed -->
-            <div class="form-group">
+            <div class="form-group" style="display: grid; grid-template-columns: 1fr auto; gap: 12px;">
                 <button type="submit" class="btn-primary">Save Changes</button>
+                <button type="button" id="btn-delete" class="btn-danger" style="display: none;" onclick="deleteItem()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
             </div>
         </form>
     </div>

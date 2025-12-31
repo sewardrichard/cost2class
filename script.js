@@ -409,6 +409,9 @@ function openAddModal(category) {
         document.getElementById("periodGroup").style.display = "none"
         document.getElementById("quantityGroup").style.display = "block"
     }
+
+    // Hide Delete Button by default (Add Mode)
+    document.getElementById("btn-delete").style.display = "none"
 }
 
 function openTaskModal() {
@@ -445,6 +448,9 @@ function editItem(category, index) {
 
     if (category === "fees") document.getElementById("itemPeriod").value = item.period || "once-off"
     else document.getElementById("itemQuantity").value = item.quantity || 1
+
+    // Show Delete Button (Edit Mode)
+    document.getElementById("btn-delete").style.display = "flex"
 }
 
 function editTask(index) {
@@ -527,6 +533,17 @@ function toggleItemComplete(category, index) {
 function toggleTaskComplete(index) {
     budgetData.adminTasks[index].completed = !budgetData.adminTasks[index].completed
     saveData()
+}
+
+function deleteItem() {
+    const category = document.getElementById("itemCategory").value
+    const id = document.getElementById("itemId").value
+
+    if (id !== "" && confirm("Delete this item?")) {
+        budgetData[category].splice(id, 1) // Remove item
+        saveData()
+        closeModal()
+    }
 }
 
 function clearAllData() {
