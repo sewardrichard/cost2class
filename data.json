@@ -3,7 +3,43 @@
   "uniforms": [
     {
       "name": "Golfshirt",
+      "price": 210,
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Jersey ",
       "price": 250,
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Pullover",
+      "price": 250,
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Drimac",
+      "price": 350,
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Tracksuit",
+      "price": 550,
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Tie",
+      "price": 90,
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Scarf Set",
+      "price": 190,
       "completed": false,
       "quantity": 1
     }
