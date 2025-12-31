@@ -36,6 +36,12 @@
       "price": 90,
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "Scarf Set",
+      "price": 190,
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
