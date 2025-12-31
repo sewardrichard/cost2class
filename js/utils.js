@@ -15,7 +15,7 @@ export const calculateAnnualFee = (item) => {
     }
 };
 
-export const calculateCategoryTotal = (items, useNormalization = false) => {
+export const calculateCategoryTotal = (items = [], useNormalization = false) => {
     return items.reduce((sum, item) => {
         if (useNormalization) {
             return sum + calculateAnnualFee(item);
@@ -24,7 +24,7 @@ export const calculateCategoryTotal = (items, useNormalization = false) => {
     }, 0);
 };
 
-export const calculateCategorySpent = (items, useNormalization = false) => {
+export const calculateCategorySpent = (items = [], useNormalization = false) => {
     return items
         .filter(item => item.checked)
         .reduce((sum, item) => {

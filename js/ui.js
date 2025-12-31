@@ -8,12 +8,13 @@ const config = {
 };
 
 export const render = (currentTab, data, filterStatus, actions) => {
+    const container = document.getElementById('items-container');
+
     if (currentTab === 'overview') {
         renderOverview(data, container);
         return;
     }
 
-    const container = document.getElementById('items-container');
     const conf = config[currentTab];
     let list = [...(data[currentTab] || [])];
 
@@ -149,14 +150,14 @@ function updateFinancials(currentTab, data) {
 function renderOverview(data, container) {
     container.innerHTML = '';
     const totals = {
-        uniform: calculateCategoryTotal(data.uniform, false),
-        stationery: calculateCategoryTotal(data.stationery, false),
-        fees: calculateCategoryTotal(data.fees, true)
+        uniform: calculateCategoryTotal(data.uniform || [], false),
+        stationery: calculateCategoryTotal(data.stationery || [], false),
+        fees: calculateCategoryTotal(data.fees || [], true)
     };
     const spent = {
-        uniform: calculateCategorySpent(data.uniform, false),
-        stationery: calculateCategorySpent(data.stationery, false),
-        fees: calculateCategorySpent(data.fees, true)
+        uniform: calculateCategorySpent(data.uniform || [], false),
+        stationery: calculateCategorySpent(data.stationery || [], false),
+        fees: calculateCategorySpent(data.fees || [], true)
     };
     const grandTotal = totals.uniform + totals.stationery + totals.fees;
     const grandSpent = spent.uniform + spent.stationery + spent.fees;

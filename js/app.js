@@ -66,6 +66,19 @@ const setupEventListeners = () => {
             updateUI();
         }
     });
+
+    // Handle "typing" state to hide footers
+    document.addEventListener('focusin', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+            document.body.classList.add('is-typing');
+        }
+    });
+
+    document.addEventListener('focusout', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') {
+            document.body.classList.remove('is-typing');
+        }
+    });
 };
 
 const switchTab = (tab) => {
