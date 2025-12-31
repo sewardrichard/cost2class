@@ -30,6 +30,12 @@
       "price": 550,
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "Tie",
+      "price": 90,
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
