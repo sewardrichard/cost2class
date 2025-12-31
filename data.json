@@ -24,6 +24,12 @@
       "price": 350,
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "Tracksuit",
+      "price": 550,
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
