@@ -11,6 +11,7 @@
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logo.ico">
 </head>
 
 <body>
@@ -18,7 +19,10 @@
         <!-- OVERVIEW PAGE -->
         <div id="overview-page" class="page active">
             <header class="app-header">
-                <h1>Dashboard</h1>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <img src="logo.svg" alt="Cost2Class Logo" style="height: 32px; width: 32px;">
+                    <h1>Cost2Class</h1>
+                </div>
                 <div class="header-actions">
                     <button class="icon-btn-circle" onclick="clearAllData()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -103,10 +107,7 @@
                 <h1>School Fees</h1>
             </header>
 
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search fees..."
-                    oninput="renderItems('fees', currentFilters.fees, this.value)">
-            </div>
+            <!-- Search Removed -->
 
             <div class="pill-tabs">
                 <button class="pill-tab active" data-filter="all" data-category="fees">All</button>
@@ -123,10 +124,7 @@
             <header class="app-header">
                 <h1>Uniforms</h1>
             </header>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search uniforms..."
-                    oninput="renderItems('uniforms', currentFilters.uniforms, this.value)">
-            </div>
+            <!-- Search Removed -->
             <div class="pill-tabs">
                 <button class="pill-tab active" data-filter="all" data-category="uniforms">All</button>
                 <button class="pill-tab" data-filter="pending" data-category="uniforms">To Buy</button>
@@ -141,10 +139,7 @@
             <header class="app-header">
                 <h1>Stationery</h1>
             </header>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search stationery..."
-                    oninput="renderItems('stationery', currentFilters.stationery, this.value)">
-            </div>
+            <!-- Search Removed -->
             <div class="pill-tabs">
                 <button class="pill-tab active" data-filter="all" data-category="stationery">All</button>
                 <button class="pill-tab" data-filter="pending" data-category="stationery">To Buy</button>
@@ -159,10 +154,7 @@
             <header class="app-header">
                 <h1>Task List</h1>
             </header>
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search tasks..."
-                    oninput="renderAdminTasks(this.value)">
-            </div>
+            <!-- Search Removed -->
             <div class="pill-tabs">
                 <div class="pill-tab active">To Do <span id="admin-count-tab">0</span></div>
             </div>
@@ -204,10 +196,7 @@
                 <label>Price (R)</label>
                 <input type="number" id="itemPrice" step="0.01" min="0" required placeholder="0.00">
             </div>
-            <div class="form-group">
-                <label>Budget (R)</label>
-                <input type="number" id="itemBudget" step="0.01" min="0" required placeholder="0.00">
-            </div>
+            <!-- Budget Input Removed -->
             <div class="form-group">
                 <button type="submit" class="btn-primary">Save Changes</button>
             </div>

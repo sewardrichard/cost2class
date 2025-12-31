@@ -1,4 +1,6 @@
 // Data structure
+// Data structure
+// Budget attribute removed, using calculated values
 let budgetData = {
     fees: [],
     uniforms: [],
@@ -183,20 +185,22 @@ function calculateCategoryTotals(category) {
     let budget = 0
 
     items.forEach((item) => {
-        const itemBudget = Number.parseFloat(item.budget) || 0
+        let itemBudget = 0
+        if (category === "fees") {
+            let annualPrice = Number.parseFloat(item.price) || 0
+            if (item.period === "monthly") annualPrice *= 12
+            else if (item.period === "termly") annualPrice *= 4
+            itemBudget = annualPrice
+        } else {
+            const quantity = Number.parseInt(item.quantity) || 1
+            const price = Number.parseFloat(item.price) || 0
+            itemBudget = quantity * price
+        }
+
         budget += itemBudget
 
         if (item.completed) {
-            if (category === "fees") {
-                let annualPrice = Number.parseFloat(item.price) || 0
-                if (item.period === "monthly") annualPrice *= 12
-                else if (item.period === "termly") annualPrice *= 4
-                spent += annualPrice
-            } else {
-                const quantity = Number.parseInt(item.quantity) || 1
-                const price = Number.parseFloat(item.price) || 0
-                spent += quantity * price
-            }
+            spent += itemBudget
         }
     })
 
@@ -204,7 +208,7 @@ function calculateCategoryTotals(category) {
 }
 
 // --- RENDERING ---
-function renderItems(category, filter = "all", searchQuery = "") {
+function renderItems(category, filter = "all") {
     const listEl = document.getElementById(`${category}-list`)
     const items = budgetData[category]
 
@@ -212,11 +216,7 @@ function renderItems(category, filter = "all", searchQuery = "") {
     if (filter === "pending") filteredItems = items.filter((item) => !item.completed)
     else if (filter === "completed") filteredItems = items.filter((item) => item.completed)
 
-    if (searchQuery) {
-        filteredItems = filteredItems.filter(item =>
-            item.name.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-    }
+
 
     if (filteredItems.length === 0) {
         listEl.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--text-tertiary);">No items found</div>`
@@ -261,11 +261,9 @@ function renderItems(category, filter = "all", searchQuery = "") {
     calculateCategoryTotals(category) // Recalculate if needed
 }
 
-function renderAdminTasks(searchQuery = "") {
+function renderAdminTasks() {
     const listEl = document.getElementById("admin-list")
     let tasks = budgetData.adminTasks
-
-    if (searchQuery) tasks = tasks.filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
 
     tasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
 
@@ -384,8 +382,8 @@ function updateUI() {
     const grandTotalBudget = feesT.budget + uniformsT.budget + stationeryT.budget
     const grandTotalSpent = feesT.spent + uniformsT.spent + stationeryT.spent
 
-    document.getElementById("total-spent").textContent = `R${grandTotalSpent.toFixed(2)}`
-    document.getElementById("total-remaining").textContent = `R${(grandTotalBudget - grandTotalSpent).toFixed(2)}`
+    document.getElementById("total-spent").textContent = `R${grandTotalSpent.toFixed(2)} `
+    document.getElementById("total-remaining").textContent = `R${(grandTotalBudget - grandTotalSpent).toFixed(2)} `
 
     renderItems("fees", currentFilters.fees)
     renderItems("uniforms", currentFilters.uniforms)
@@ -443,7 +441,7 @@ function editItem(category, index) {
     document.getElementById("itemId").value = index
     document.getElementById("itemName").value = item.name
     document.getElementById("itemPrice").value = item.price
-    document.getElementById("itemBudget").value = item.budget
+    // Budget field removed
 
     if (category === "fees") document.getElementById("itemPeriod").value = item.period || "once-off"
     else document.getElementById("itemQuantity").value = item.quantity || 1
@@ -466,7 +464,6 @@ document.getElementById("itemForm").addEventListener("submit", (e) => {
     const item = {
         name: document.getElementById("itemName").value,
         price: parseFloat(document.getElementById("itemPrice").value),
-        budget: parseFloat(document.getElementById("itemBudget").value),
         completed: id !== "" ? budgetData[category][id].completed : false, // preserve status
         [category === "fees" ? "period" : "quantity"]: category === "fees" ? document.getElementById("itemPeriod").value : parseInt(document.getElementById("itemQuantity").value)
     }
