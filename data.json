@@ -201,6 +201,11 @@
       "name": "Buy Uniform",
       "deadline": "2026-01-11",
       "completed": false
+    },
+    {
+      "name": "Buy Stationery",
+      "deadline": "2026-01-11",
+      "completed": false
     }
   ]
 }
