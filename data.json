@@ -91,6 +91,10 @@
         {
           "store": "Pep",
           "price": 65
+        },
+        {
+          "store": "Ackermans",
+          "price": 120
         }
       ],
       "completed": false,
