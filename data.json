@@ -84,6 +84,17 @@
           "price": 190
         }
       ]
+    },
+    {
+      "name": "Light Blue SHirt",
+      "prices": [
+        {
+          "store": "Pep",
+          "price": 65
+        }
+      ],
+      "completed": false,
+      "quantity": 2
     }
   ],
   "stationery": [],
