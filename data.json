@@ -99,6 +99,25 @@
       ],
       "completed": false,
       "quantity": 2
+    },
+    {
+      "name": "Grey Skirt",
+      "prices": [
+        {
+          "store": "Pep 1",
+          "price": 30
+        },
+        {
+          "store": "Pep 2",
+          "price": 70
+        },
+        {
+          "store": "Ackermans",
+          "price": 180
+        }
+      ],
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
