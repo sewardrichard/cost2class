@@ -171,6 +171,18 @@
       "quantity": 1
     }
   ],
-  "stationery": [],
+  "stationery": [
+    {
+      "name": "Trolley Bag",
+      "prices": [
+        {
+          "store": "Ackermans",
+          "price": 250
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    }
+  ],
   "adminTasks": []
 }
