@@ -118,6 +118,17 @@
       ],
       "completed": false,
       "quantity": 4
+    },
+    {
+      "name": "White Socks",
+      "prices": [
+        {
+          "store": "Ackermans",
+          "price": 55
+        }
+      ],
+      "completed": false,
+      "quantity": 2
     }
   ],
   "stationery": [],
