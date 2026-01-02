@@ -163,6 +163,12 @@
       "prices": [],
       "completed": false,
       "quantity": 5
+    },
+    {
+      "name": "Blue Denim Jean",
+      "prices": [],
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
