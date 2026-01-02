@@ -1,17 +1,5 @@
 {
-  "fees": [
-    {
-      "name": "School Fees",
-      "prices": [
-        {
-          "store": "",
-          "price": 750
-        }
-      ],
-      "completed": false,
-      "period": "monthly"
-    }
-  ],
+  "fees": [],
   "uniforms": [
     {
       "name": "Golfshirt",
@@ -212,7 +200,7 @@
         },
         {
           "store": "PNA/Makro",
-          "price": 119.0
+          "price": 119
         }
       ],
       "completed": false,
@@ -231,11 +219,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 45.0
+          "price": 45
         },
         {
           "store": "PNA/Makro",
-          "price": 57.0
+          "price": 57
         }
       ],
       "completed": false,
@@ -250,15 +238,15 @@
         },
         {
           "store": "Shoprite",
-          "price": 25.0
+          "price": 25
         },
         {
           "store": "Pick n Pay",
-          "price": 29.0
+          "price": 29
         },
         {
           "store": "PNA/Makro",
-          "price": 27.0
+          "price": 27
         }
       ],
       "completed": false,
@@ -281,7 +269,7 @@
         },
         {
           "store": "PNA/Makro",
-          "price": 24.0
+          "price": 24
         }
       ],
       "completed": false,
@@ -300,11 +288,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 25.0
+          "price": 25
         },
         {
           "store": "PNA/Makro",
-          "price": 20.0
+          "price": 20
         }
       ],
       "completed": false,
@@ -346,11 +334,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 15.0
+          "price": 15
         },
         {
           "store": "PNA/Makro",
-          "price": 18.0
+          "price": 18
         }
       ],
       "completed": false,
@@ -369,11 +357,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 21.0
+          "price": 21
         },
         {
           "store": "PNA/Makro",
-          "price": 19.0
+          "price": 19
         }
       ],
       "completed": false,
@@ -392,7 +380,7 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 25.0
+          "price": 25
         },
         {
           "store": "PNA/Makro",
@@ -415,11 +403,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 42.0
+          "price": 42
         },
         {
           "store": "PNA/Makro",
-          "price": 35.0
+          "price": 35
         }
       ],
       "completed": false,
@@ -438,11 +426,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 24.0
+          "price": 24
         },
         {
           "store": "PNA/Makro",
-          "price": 24.0
+          "price": 24
         }
       ],
       "completed": false,
@@ -453,19 +441,19 @@
       "prices": [
         {
           "store": "Checkers",
-          "price": 142.0
+          "price": 142
         },
         {
           "store": "Shoprite",
-          "price": 135.0
+          "price": 135
         },
         {
           "store": "Pick n Pay",
-          "price": 145.0
+          "price": 145
         },
         {
           "store": "PNA/Makro",
-          "price": 142.0
+          "price": 142
         }
       ],
       "completed": false,
@@ -484,11 +472,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 39.0
+          "price": 39
         },
         {
           "store": "PNA/Makro",
-          "price": 32.0
+          "price": 32
         }
       ],
       "completed": false,
@@ -507,11 +495,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 14.0
+          "price": 14
         },
         {
           "store": "PNA/Makro",
-          "price": 12.0
+          "price": 12
         }
       ],
       "completed": false,
@@ -522,19 +510,19 @@
       "prices": [
         {
           "store": "Checkers",
-          "price": 85.0
+          "price": 85
         },
         {
           "store": "Shoprite",
-          "price": 89.0
+          "price": 89
         },
         {
           "store": "Pick n Pay",
-          "price": 95.0
+          "price": 95
         },
         {
           "store": "PNA/Makro",
-          "price": 72.0
+          "price": 72
         }
       ],
       "completed": false,
@@ -545,19 +533,19 @@
       "prices": [
         {
           "store": "Checkers",
-          "price": 65.0
+          "price": 65
         },
         {
           "store": "Shoprite",
-          "price": 59.0
+          "price": 59
         },
         {
           "store": "Pick n Pay",
-          "price": 69.0
+          "price": 69
         },
         {
           "store": "PNA/Makro",
-          "price": 45.0
+          "price": 45
         }
       ],
       "completed": false,
@@ -572,15 +560,15 @@
         },
         {
           "store": "Shoprite",
-          "price": 35.0
+          "price": 35
         },
         {
           "store": "Pick n Pay",
-          "price": 42.0
+          "price": 42
         },
         {
           "store": "PNA/Makro",
-          "price": 39.0
+          "price": 39
         }
       ],
       "completed": false,
@@ -599,11 +587,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 85.0
+          "price": 85
         },
         {
           "store": "PNA/Makro",
-          "price": 85.0
+          "price": 85
         }
       ],
       "completed": false,
@@ -622,7 +610,7 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 42.0
+          "price": 42
         },
         {
           "store": "PNA/Makro",
@@ -645,11 +633,11 @@
         },
         {
           "store": "Pick n Pay",
-          "price": 25.0
+          "price": 25
         },
         {
           "store": "PNA/Makro",
-          "price": 28.0
+          "price": 28
         }
       ],
       "completed": false,
@@ -660,19 +648,19 @@
       "prices": [
         {
           "store": "Checkers",
-          "price": 54.0
+          "price": 54
         },
         {
           "store": "Shoprite",
-          "price": 59.0
+          "price": 59
         },
         {
           "store": "Pick n Pay",
-          "price": 62.0
+          "price": 62
         },
         {
           "store": "PNA/Makro",
-          "price": 54.0
+          "price": 54
         }
       ],
       "completed": false,
@@ -718,7 +706,7 @@
         },
         {
           "store": "PNA/Makro",
-          "price": 129.0
+          "price": 129
         }
       ],
       "completed": false,
@@ -733,15 +721,15 @@
         },
         {
           "store": "Shoprite",
-          "price": 22.0
+          "price": 22
         },
         {
           "store": "Pick n Pay",
-          "price": 29.0
+          "price": 29
         },
         {
           "store": "PNA/Makro",
-          "price": 22.0
+          "price": 22
         }
       ],
       "completed": false,
@@ -752,19 +740,19 @@
       "prices": [
         {
           "store": "Checkers",
-          "price": 35.0
+          "price": 35
         },
         {
           "store": "Shoprite",
-          "price": 32.0
+          "price": 32
         },
         {
           "store": "Pick n Pay",
-          "price": 39.0
+          "price": 39
         },
         {
           "store": "PNA/Makro",
-          "price": 35.0
+          "price": 35
         }
       ],
       "completed": false,
@@ -775,19 +763,19 @@
       "prices": [
         {
           "store": "Checkers",
-          "price": 60.0
+          "price": 60
         },
         {
           "store": "Shoprite",
-          "price": 55.0
+          "price": 55
         },
         {
           "store": "Pick n Pay",
-          "price": 65.0
+          "price": 65
         },
         {
           "store": "PNA/Makro",
-          "price": 55.0
+          "price": 55
         }
       ],
       "completed": false,
