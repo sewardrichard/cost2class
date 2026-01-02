@@ -1,5 +1,17 @@
 {
-  "fees": [],
+  "fees": [
+    {
+      "name": "School Fees",
+      "prices": [
+        {
+          "store": "",
+          "price": 750
+        }
+      ],
+      "completed": false,
+      "period": "monthly"
+    }
+  ],
   "uniforms": [
     {
       "name": "Golfshirt",
