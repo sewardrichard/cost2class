@@ -131,6 +131,21 @@
       ],
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "School Shoes",
+      "prices": [
+        {
+          "store": "Pep",
+          "price": 290
+        },
+        {
+          "store": "Ackermans",
+          "price": 290
+        }
+      ],
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
