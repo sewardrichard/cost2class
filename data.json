@@ -196,5 +196,11 @@
       "quantity": 1
     }
   ],
-  "adminTasks": []
+  "adminTasks": [
+    {
+      "name": "Buy Uniform",
+      "deadline": "2026-01-11",
+      "completed": false
+    }
+  ]
 }
