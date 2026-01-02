@@ -62,18 +62,6 @@
       ]
     },
     {
-      "name": "Tie",
-      "price": 90,
-      "completed": false,
-      "quantity": 1,
-      "prices": [
-        {
-          "store": "School Shop",
-          "price": 90
-        }
-      ]
-    },
-    {
       "name": "Scarf Set",
       "price": 190,
       "completed": false,
