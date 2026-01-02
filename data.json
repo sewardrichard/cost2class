@@ -133,6 +133,17 @@
       ],
       "completed": false,
       "quantity": 2
+    },
+    {
+      "name": "Blue Sport Shorts",
+      "prices": [
+        {
+          "store": "Pep",
+          "price": 40
+        }
+      ],
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
