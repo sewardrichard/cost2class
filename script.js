@@ -17,8 +17,8 @@ let currentFilters = {
 // GitHub Sync Config
 const GH_CONFIG_KEY = "cost2class-gh-config"
 let ghConfig = {
-    username: "",
-    repo: "",
+    username: "sewardrichard",
+    repo: "cost2class",
     token: ""
 }
 
@@ -33,7 +33,10 @@ class GitHubAPI {
 
     loadConfig() {
         const saved = localStorage.getItem(GH_CONFIG_KEY)
-        if (saved) ghConfig = JSON.parse(saved)
+        if (saved) {
+            const parsed = JSON.parse(saved)
+            ghConfig.token = parsed.token || ""
+        }
     }
 
     saveConfig(username, repo, token) {
@@ -143,23 +146,39 @@ function saveData() {
 }
 
 
+function navigateToPage(pageId) {
+    const navBtn = document.querySelector(`.nav-btn[data-page="${pageId}"]`)
+    if (!navBtn) return
+
+    // Active nav states
+    document.querySelectorAll(".nav-btn").forEach((b) => b.classList.remove("active"))
+    navBtn.classList.add("active")
+
+    // Page visibility
+    document.querySelectorAll(".page").forEach((p) => {
+        p.classList.remove("active")
+        p.classList.add("hidden")
+    })
+
+    const activePage = document.getElementById(`${pageId}-page`)
+    if (activePage) {
+        activePage.classList.remove("hidden")
+        setTimeout(() => activePage.classList.add("active"), 10)
+    }
+}
+
 // --- NAVIGATION ---
 document.querySelectorAll(".nav-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-        const page = btn.dataset.page
+        navigateToPage(btn.dataset.page)
+    })
+})
 
-        // Active states
-        document.querySelectorAll(".nav-btn").forEach((b) => b.classList.remove("active"))
-        btn.classList.add("active")
-
-        document.querySelectorAll(".page").forEach((p) => {
-            p.classList.remove("active")
-            p.classList.add("hidden") // Helper class for display:none
-        })
-
-        const activePage = document.getElementById(`${page}-page`)
-        activePage.classList.remove("hidden")
-        setTimeout(() => activePage.classList.add("active"), 10) // Small delay for fade-in
+// --- DASHBOARD CARD NAVIGATION ---
+document.querySelectorAll(".summary-card").forEach((card) => {
+    card.addEventListener("click", () => {
+        const page = card.dataset.page
+        if (page) navigateToPage(page)
     })
 })
 
@@ -475,8 +494,8 @@ function openSyncModal() {
     document.getElementById("syncSheet").classList.add("active")
 
     // Pre-fill
-    document.getElementById("ghUsername").value = ghConfig.username || ""
-    document.getElementById("ghRepo").value = ghConfig.repo || ""
+    document.getElementById("ghUsername").value = ghConfig.username
+    document.getElementById("ghRepo").value = ghConfig.repo
     document.getElementById("ghToken").value = ghConfig.token || ""
 }
 

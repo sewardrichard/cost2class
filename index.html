@@ -36,7 +36,9 @@
                     <button class="icon-btn-circle" onclick="openSyncModal()" id="syncBtn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            <path
+                                d="M17.5 19c2.5 0 4.5-2 4.5-4.5 0-2.3-1.7-4.2-4-4.5 0-0.2 0-0.3 0-0.5A7 7 0 0 0 4.4 7c0 .2 0 .3 0 .5-2.3.3-4 2.2-4 4.5 0 2.5 2 4.5 4.5 4.5H17.5Z">
+                            </path>
                         </svg>
                     </button>
                 </div>
@@ -47,28 +49,28 @@
                     <h3>Budget Summary</h3>
                 </div>
                 <div class="summary-grid">
-                    <div class="summary-card card-purple">
+                    <div class="summary-card card-purple" data-page="fees">
                         <div class="card-top">
                             <span class="card-count" id="fees-total">R0</span>
                         </div>
                         <div class="card-label">School Fees</div>
                         <div class="card-widget-bg"></div>
                     </div>
-                    <div class="summary-card card-pink">
+                    <div class="summary-card card-pink" data-page="uniforms">
                         <div class="card-top">
                             <span class="card-count" id="uniforms-total">R0</span>
                         </div>
                         <div class="card-label">Uniforms</div>
                         <div class="card-widget-bg"></div>
                     </div>
-                    <div class="summary-card card-orange">
+                    <div class="summary-card card-orange" data-page="stationery">
                         <div class="card-top">
                             <span class="card-count" id="stationery-total">R0</span>
                         </div>
                         <div class="card-label">Stationery</div>
                         <div class="card-widget-bg"></div>
                     </div>
-                    <div class="summary-card card-green">
+                    <div class="summary-card card-green" data-page="admin">
                         <div class="card-top">
                             <span class="card-count" id="admin-count">0</span>
                         </div>
@@ -248,11 +250,13 @@
         <form id="syncForm">
             <div class="form-group">
                 <label>GitHub Username</label>
-                <input type="text" id="ghUsername" placeholder="e.g. sewardrichard" required>
+                <input type="text" id="ghUsername" value="sewardrichard" readonly
+                    style="background: var(--bg-body); opacity: 0.7; cursor: not-allowed;">
             </div>
             <div class="form-group">
                 <label>Repository Name</label>
-                <input type="text" id="ghRepo" placeholder="e.g. cost2class" required>
+                <input type="text" id="ghRepo" value="cost2class" readonly
+                    style="background: var(--bg-body); opacity: 0.7; cursor: not-allowed;">
             </div>
             <div class="form-group">
                 <label>Personal Access Token (Fine-grained)</label>
