@@ -1,5 +1,17 @@
 {
-  "fees": [],
+  "fees": [
+    {
+      "name": "Registration ",
+      "prices": [
+        {
+          "store": "",
+          "price": 1000
+        }
+      ],
+      "completed": false,
+      "period": "once-off"
+    }
+  ],
   "uniforms": [
     {
       "name": "Golfshirt",
