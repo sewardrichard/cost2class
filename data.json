@@ -144,6 +144,17 @@
       ],
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "White Sneakers",
+      "prices": [
+        {
+          "store": "Ackermans",
+          "price": 220
+        }
+      ],
+      "completed": false,
+      "quantity": 1
     }
   ],
   "stationery": [],
