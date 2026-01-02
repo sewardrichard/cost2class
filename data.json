@@ -146,6 +146,17 @@
       ],
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "White Vests",
+      "prices": [
+        {
+          "store": "Ackermans",
+          "price": 90
+        }
+      ],
+      "completed": false,
+      "quantity": 3
     }
   ],
   "stationery": [],
