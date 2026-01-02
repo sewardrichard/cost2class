@@ -198,6 +198,11 @@
   ],
   "adminTasks": [
     {
+      "name": "Registration ",
+      "deadline": "2026-01-02",
+      "completed": false
+    },
+    {
       "name": "Buy Uniform",
       "deadline": "2026-01-11",
       "completed": false
