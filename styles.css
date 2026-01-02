@@ -414,11 +414,12 @@ p {
     bottom: 20px;
     left: 20px;
     right: 20px;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.9);
+    height: 72px;
+    background: #2D2D2D;
+    /* Dark grey like the image */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-radius: 35px;
+    border-radius: 36px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -426,33 +427,57 @@ p {
     z-index: 100;
     max-width: 500px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .nav-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    height: 48px;
+    padding: 0 12px;
+    border-radius: 24px;
     border: none;
     background: transparent;
-    color: var(--text-tertiary);
+    color: #A0A0A0;
+    /* Light grey for inactive */
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .nav-btn svg {
     width: 24px;
     height: 24px;
-    stroke-width: 2.5px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.nav-btn span {
+    max-width: 0;
+    opacity: 0;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-btn.active {
-    color: var(--brand-primary);
-    background: var(--brand-soft);
-    transform: translateY(-8px);
-    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+    background: white;
+    color: black;
+    padding: 0 18px;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn.active span {
+    max-width: 100px;
+    opacity: 1;
+}
+
+.nav-btn.active svg {
+    color: black;
 }
 
 /* --- FAB (Floating Action Button) --- */
