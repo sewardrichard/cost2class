@@ -157,6 +157,12 @@
       ],
       "completed": false,
       "quantity": 3
+    },
+    {
+      "name": "Tights",
+      "prices": [],
+      "completed": false,
+      "quantity": 5
     }
   ],
   "stationery": [],
