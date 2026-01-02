@@ -194,6 +194,604 @@
       ],
       "completed": false,
       "quantity": 1
+    },
+    {
+      "name": "Staedtler HB Pencils (Thin)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 119.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 119.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 124.99
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 119.0
+        }
+      ],
+      "completed": false,
+      "quantity": 10
+    },
+    {
+      "name": "Pritt Glue Stick (43g)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 39.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 39.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 45.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 57.0
+        }
+      ],
+      "completed": false,
+      "quantity": 6
+    },
+    {
+      "name": "Marlin Kids Max Crayons",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 27.05
+        },
+        {
+          "store": "Shoprite",
+          "price": 25.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 29.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 27.0
+        }
+      ],
+      "completed": false,
+      "quantity": 2
+    },
+    {
+      "name": "Colour Pencils (12s)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 24.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 22.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 26.99
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 24.0
+        }
+      ],
+      "completed": false,
+      "quantity": 2
+    },
+    {
+      "name": "Staedtler Scissors (Blunt)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 22.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 19.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 25.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 20.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Ruler (30cm)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 6.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 5.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 7.99
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 9.99
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Eraser (Big)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 14.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 12.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 15.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 18.0
+        }
+      ],
+      "completed": false,
+      "quantity": 4
+    },
+    {
+      "name": "Sharpener (Double hole/bucket)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 19.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 17.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 21.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 19.0
+        }
+      ],
+      "completed": false,
+      "quantity": 3
+    },
+    {
+      "name": "Hard Cover Book (A4 288pg)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 23.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 23.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 25.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 29.99
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Denim Pencil Bag (Zip)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 39.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 35.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 42.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 35.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Flip File (20 Pockets)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 21.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 19.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 24.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 24.0
+        }
+      ],
+      "completed": false,
+      "quantity": 2
+    },
+    {
+      "name": "Whiteboard Markers (Black)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 142.0
+        },
+        {
+          "store": "Shoprite",
+          "price": 135.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 145.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 142.0
+        }
+      ],
+      "completed": false,
+      "quantity": 10
+    },
+    {
+      "name": "Whiteboard (A4 Unframed)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 34.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 29.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 39.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 32.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "A4 Plastic Envelopes",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 12.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 10.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 14.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 12.0
+        }
+      ],
+      "completed": false,
+      "quantity": 5
+    },
+    {
+      "name": "Typek A4 Paper (500s)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 85.0
+        },
+        {
+          "store": "Shoprite",
+          "price": 89.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 95.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 72.0
+        }
+      ],
+      "completed": false,
+      "quantity": 2
+    },
+    {
+      "name": "A4 Laminating Pouches (30s)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 65.0
+        },
+        {
+          "store": "Shoprite",
+          "price": 59.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 69.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 45.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Colouring Book (Jumbo 100pg)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 39.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 35.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 42.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 39.0
+        }
+      ],
+      "completed": false,
+      "quantity": 2
+    },
+    {
+      "name": "Denim Chair Bag (Small)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 89.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 79.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 85.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 85.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Pentel Oil Pastels (12s)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 39.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 39.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 42.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 34.99
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Wet Wipes (Any brand)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 24.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 22.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 25.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 28.0
+        }
+      ],
+      "completed": false,
+      "quantity": 4
+    },
+    {
+      "name": "Teddy's Play Dough Bucket",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 54.0
+        },
+        {
+          "store": "Shoprite",
+          "price": 59.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 62.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 54.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Sunlight Liquid (750ml)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 37.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 37.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 39.99
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 34.95
+        }
+      ],
+      "completed": false,
+      "quantity": 2
+    },
+    {
+      "name": "Toilet Rolls (18 pack)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 119.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 109.99
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 139.99
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 129.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Handwash (250ml)",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 24.99
+        },
+        {
+          "store": "Shoprite",
+          "price": 22.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 29.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 22.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "Wooden Skipping Rope",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 35.0
+        },
+        {
+          "store": "Shoprite",
+          "price": 32.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 39.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 35.0
+        }
+      ],
+      "completed": false,
+      "quantity": 1
+    },
+    {
+      "name": "A4 Heavy Duty Slip On Covers",
+      "prices": [
+        {
+          "store": "Checkers",
+          "price": 60.0
+        },
+        {
+          "store": "Shoprite",
+          "price": 55.0
+        },
+        {
+          "store": "Pick n Pay",
+          "price": 65.0
+        },
+        {
+          "store": "PNA/Makro",
+          "price": 55.0
+        }
+      ],
+      "completed": false,
+      "quantity": 20
     }
   ],
   "adminTasks": [
