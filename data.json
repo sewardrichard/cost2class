@@ -136,7 +136,7 @@
           "price": 360
         }
       ],
-      "completed": false,
+      "completed": true,
       "quantity": 1
     },
     {
