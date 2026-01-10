@@ -164,7 +164,12 @@
     },
     {
       "name": "Tights",
-      "prices": [],
+      "prices": [
+        {
+          "store": "Ackermans",
+          "price": 95
+        }
+      ],
       "completed": false,
       "quantity": 5
     },
