@@ -132,12 +132,8 @@
       "name": "School Shoes",
       "prices": [
         {
-          "store": "Pep",
-          "price": 290
-        },
-        {
-          "store": "Ackermans",
-          "price": 290
+          "store": "Jet",
+          "price": 360
         }
       ],
       "completed": false,
