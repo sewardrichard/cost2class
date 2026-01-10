@@ -88,20 +88,12 @@
       "name": "Grey Skirt",
       "prices": [
         {
-          "store": "Pep 1",
-          "price": 30
-        },
-        {
-          "store": "Pep 2",
-          "price": 70
-        },
-        {
           "store": "Ackermans",
-          "price": 180
+          "price": 120
         }
       ],
-      "completed": false,
-      "quantity": 4
+      "completed": true,
+      "quantity": 2
     },
     {
       "name": "White Socks",
