@@ -163,7 +163,12 @@
     },
     {
       "name": "Blue Denim Jean",
-      "prices": [],
+      "prices": [
+        {
+          "store": "Jet",
+          "price": 140
+        }
+      ],
       "completed": false,
       "quantity": 1
     }
