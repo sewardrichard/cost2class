@@ -52,7 +52,7 @@
     {
       "name": "Drimac",
       "price": 350,
-      "completed": false,
+      "completed": true,
       "quantity": 1,
       "prices": [
         {
