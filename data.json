@@ -40,7 +40,7 @@
     {
       "name": "Pullover",
       "price": 250,
-      "completed": false,
+      "completed": true,
       "quantity": 1,
       "prices": [
         {
