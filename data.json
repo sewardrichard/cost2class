@@ -77,16 +77,12 @@
       "name": "Light Blue Shirt",
       "prices": [
         {
-          "store": "Pep",
-          "price": 65
-        },
-        {
           "store": "Ackermans",
-          "price": 120
+          "price": 80
         }
       ],
       "completed": false,
-      "quantity": 2
+      "quantity": 3
     },
     {
       "name": "Grey Skirt",
