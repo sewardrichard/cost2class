@@ -110,11 +110,11 @@
       "name": "Blue Sport Shorts",
       "prices": [
         {
-          "store": "Pep",
-          "price": 40
+          "store": "Ackermans",
+          "price": 110
         }
       ],
-      "completed": false,
+      "completed": true,
       "quantity": 1
     },
     {
